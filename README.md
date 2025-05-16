@@ -10,7 +10,7 @@
   
 👉 [Hahow 官網](https://hahow.in/)    
 
-👉 [用數據找先機｜本專案 Notion 連結](https://hahow.in/)  
+👉 [用數據找先機｜本專案 Notion 連結](https://gold-twist-553.notion.site/1e047c95fe3580d88b1dff7b681ef583)  
 
 ⚠️ 本專案資料皆取自 Hahow 官網公開頁面，**僅供學術與個人學習用途，無商業意圖**。如有侵權疑慮，歡迎聯絡我以便下架處理。 
 
@@ -179,7 +179,7 @@ hahow_course_analysis/
 
 📧 Email：cing880314@gmail.com  
   
-📂 [Notion｜完整作品集整理](你的 Notion 連結)
+📂 Notion：[ 完整作品集整理 ](https://gold-twist-553.notion.site/1e047c95fe3580d3b28cd0573424d909)
 
 ---
 
