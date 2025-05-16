@@ -96,12 +96,12 @@ hahow_course_analysis/
   
 3. 可於程式中依需求調整以下變數：
    - `course_type`：設定欲爬取的課程分類
-   - `user_agent_list` / `proxy_list`：自訂並隨機使用 User-Agent 和 Proxy，模擬正常使用者行為以避免被封鎖（此功能尚未實作）
+   - `user_agents_list` / `proxies_list`：自訂並隨機使用 User-Agent 和 Proxy，模擬正常使用者行為以避免被封鎖（此功能尚未實作）
 
 ### ⚠️ 爬蟲注意事項
 
 1. **網站資料為 JavaScript 動態渲染**，課程區塊的 class（如 `gtWJhG`）可能會變動。  
-   - 若無法擷取課程資料，請開啟開發者工具（F12）檢查 HTML 結構，並更新 `hahow_scraper.py` 中對應的 class 名稱。
+   - 若無法擷取課程資料，請開啟開發者工具（F12）檢查 HTML 結構，並更新 `01_course_scraping.ipynb` 中對應的 class 名稱。
 
 2. **若出現「網頁無法開啟」或「爬取速度變慢」的情況：**  
    - 可能是 Proxy 過期，請進行更新。  
