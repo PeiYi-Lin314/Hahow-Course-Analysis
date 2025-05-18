@@ -2,15 +2,15 @@
 
 ## 📌 專案介紹
 
-本專案透過 `Python` 自動化爬取 Hahow 平台課程資訊，並完成資料清理與整合，產出結構化且可用於分析的 `CSV` 檔案。  
+本專案透過 `Python` 自動化爬取 Hahow 平台課程資訊，並完成資料清理與整合，產出結構化且可用於分析的 `CSV` 檔案。
 
-後續將利用 `Power BI` 及 `文字雲關鍵字分析`，探索潛力課程，找出市場中具有高潛力但尚未飽和的領域，作為課程開發與行銷策略的參考依據。  
+後續將利用 `Power BI` 及 `文字雲關鍵字分析`，探索潛力課程，找出市場中具有高潛力但尚未飽和的領域，作為課程開發與行銷策略的參考依據。 
 
 目前程式仍在持續修正中，但已完成初步爬取與清理階段，並將文字雲與關鍵字分析結果展示於 Notion 作品集。
   
 👉 [Hahow 官網](https://hahow.in/)    
 
-👉 [用數據找先機｜本專案 Notion 連結](https://gold-twist-553.notion.site/1e047c95fe3580d88b1dff7b681ef583)  
+👉 [用數據找先機 | 本專案 Notion 連結](https://gold-twist-553.notion.site/1e047c95fe3580d88b1dff7b681ef583)  
 
 ⚠️ 本專案資料皆取自 Hahow 官網公開頁面，**僅供學術與個人學習用途，無商業意圖**。如有侵權疑慮，歡迎聯絡我以便下架處理。 
 
@@ -20,10 +20,10 @@
 hahow_course_analysis/  
 ├── README.md          # 專案說明文件  
 ├── scraped_data/      # 每頁課程的原始爬蟲資料（程式執行後自動產生）         
-├── merged_data/       # 每個分類合併後的原始資料（程式執行後自動產生）                               
+├── merged_data/       # 每個分類合併後的原始資料（程式執行後自動產生）                            
 ├── cleaned_data/      # 清理後的分類資料（程式執行後自動產生）  
 ├── total_data/        # 最終彙整的課程總表（程式執行後產出）
-├── 01_course_scraping.ipynb    # 爬蟲主程式（爬取每一分類）  
+├── 01_course_scraping.ipynb    # 爬蟲主程式（爬取每一分類）
 ├── 02_data_merging.ipynb       # 合併各分類 CSV 檔案  
 └── 03_data_cleaning.ipynb      # 資料清理與整理合併檔案
 </pre>
@@ -39,25 +39,41 @@ hahow_course_analysis/
 
 ### 🌐 ChromeDriver 下載與設定    
 
-本專案使用 Selenium 進行網頁自動化爬取，需搭配對應版本的 ChromeDriver。   
+本專案使用 Selenium 進行網頁自動化爬取，需搭配對應版本的 ChromeDriver。  
 
-✅ 請依照您本機安裝的作業系統與 Chrome 版本下載對應的 ChromeDriver。到官方網站下載相應的驅動程式：
+✅ ChromeDriver 安裝說明  
+1. 請確認你已安裝 Google Chrome。
+2. 根據你的本機安裝的作業系統與 Chrome 版本至以下頁面下載對應版本的 ChromeDriver。
+3. 解壓縮後，取得 `chromedriver.exe` 檔案。
             
 👉 [ChromeDriver 官方下載頁面](https://developer.chrome.com/docs/chromedriver/downloads?hl=zh-tw)
 
-下載後，請將 ChromeDriver 可執行檔，放置在：
-- 系統的 `PATH` 中
-- 在程式碼中明確指定 ChromeDriver 的路徑
+📁 建議放置位置
+將 `chromedriver.exe` 放置在專案的根目錄中，例如：
+<pre>
+hahow_course_analysis/  
+├── chromedriver.exe            ← ✅ 放這裡                                 
+├── 01_course_scraping.ipynb    # 爬蟲主程式（爬取每一分類）  
+├── ...     
+</pre>
+
+程式已設定自動尋找專案資料夾內的 `chromedriver.exe`，不需額外加入系統環境變數：
+```python
+from selenium.webdriver.chrome.service import Service
+service = Service(executable_path="./chromedriver.exe")
+driver = webdriver.Chrome(service=service, options=chrome_options)
+```
+
 ---
 ## 📌 程式特色  
 - **Selenium + BeautifulSoup 自動化網頁爬取**
   
-    - 結合 `Selenium`的瀏覽器模擬與 `BeautifulSoup` 的靜態網頁解析，提升資料抓取的穩定性與效率。搭配隨機 `User-Agent` 與 `Proxy` 設定，可降低被反爬蟲封鎖的風險，且易於擴充代理池。
+    - 結合 `Selenium`的瀏覽器模擬與 `BeautifulSoup` 的靜態網頁解析，提升資料抓取的穩定性與效率。搭配隨機 `User-Agent` 與 `Proxy` 設定，可降低被反爬蟲封鎖的風險，且易於擴充。
     
 - **靈活的正則表達式解析**
   
     - 針對未結構化且格式多變的課程資訊，設計專用正則表達式自動擷取重要欄位，大幅減少人工清理時間，並提升資料完整性。
-      
+
 - **嚴謹的錯誤處理與資料清理流程**
   
     - 包含缺失值檢查、格式轉換與數值標準化，確保輸出資料乾淨且一致，避免分析時因資料異常造成誤判。
@@ -72,31 +88,29 @@ hahow_course_analysis/
       
 - **統一格式，方便分析工具直接使用**
   
-    - 合併後資料欄位名稱與格式一致，方便無縫接軌 `Power BI`、`Tableau` 等商業智慧工具，快速建立互動式報表與視覺化分析。
+    - 合併後資料欄位名稱與格式一致，方便無縫接軌 `Power BI`等商業分析工具，快速建立互動式報表與視覺化分析。
 ---
 ## 📌 分析流程
-- 圖片
 
----
 ## 📍 PART 1｜Hahow 課程資料擷取
 
 本專案第一階段使用 `Selenium` 搭配 `BeautifulSoup`，自動擷取 Hahow 各分類課程資料。
 
-- 每個分類的課程頁面會逐頁抓取課程資訊，包含課程名稱、課程連結、熱門標籤等欄位
-- 擷取後的資料會自動儲存為 CSV 檔，存放於 `scraped_data/` 資料夾中
-- CSV 檔案依據課程分類與頁碼命名，例如 `hahow_音樂_page1.csv`，方便後續資料整理與管理
+- 每個分類的課程頁面會逐頁抓取課程資訊，包含課程名稱、課程連結、熱門標籤等欄位。
+- 擷取後的資料會自動儲存為 CSV 檔，存放於 `scraped_data/` 資料夾中。
+- CSV 檔案依據課程分類與頁碼命名，例如 `hahow_音樂_page1.csv`，方便後續資料整理與管理。
 
 此流程確保資料擷取自動化且系統化，為後續資料清理與分析打下穩固基礎。
 
 ### 🛠️ 執行說明
 
-1. 安裝必要套件（請參見上方 **環境設定** 章節，手動安裝所需套件）
+1. 安裝必要套件（請參見上方 **環境設定** 章節，手動安裝所需套件）。
   
-2. 執行主程式 `01_course_scraping.ipynb`
+2. 執行主程式 `01_course_scraping.ipynb`。
   
 3. 可於程式中依需求調整以下變數：
-   - `course_type`：設定欲爬取的課程分類
-   - `user_agents_list` / `proxies_list`：自訂並隨機使用 User-Agent 和 Proxy，模擬正常使用者行為以避免被封鎖（此功能尚未實作）
+   - `course_type`：設定欲爬取的課程分類。
+   - `user_agents_list` / `proxies_list`：自訂並隨機使用 User-Agent 和 Proxy，模擬正常使用者行為以避免被封鎖。
 
 ### ⚠️ 爬蟲注意事項
 
@@ -112,7 +126,7 @@ hahow_course_analysis/
 
 程式 `02_data_merging.ipynb` 會自動讀取 `scraped_data/` 資料夾中、依課程分類儲存的所有分頁 CSV 檔，並合併為單一資料集，並輸出至 `merged_data/` 資料夾中。
 
-例如：若「音樂」類別共有兩頁，則會讀取  
+例如，若「音樂」類別共有兩頁，則會讀取： 
 - `hahow_音樂_page1.csv`  
 - `hahow_音樂_page2.csv`  
 
@@ -165,10 +179,16 @@ hahow_course_analysis/
 
 ---
 ## 🛠 未來可擴充方向
-- 加入定期排程機制，自動更新課程資訊
-- 擴充資料欄位（如：上架日期、開課狀態、募資狀態、導師回應數等），提升資料探討深度
-- 整合 Power BI 等商業分析工具進行視覺化（目前已有 Power BI 相關作法，文字雲及關鍵字分析部分仍待測試 Jupyter Notebook 執行狀況）
+- 加入定期排程機制，自動更新課程資訊。
+- 擴充資料欄位（如：上架日期、開課狀態、募資狀態、導師回應數等），提升資料探討深度。
+- 整合 Power BI 等商業分析工具進行視覺化（目前已有 Power BI 相關作法，文字雲及關鍵字分析部分仍待測試 Jupyter Notebook 執行狀況）。
 
+## ⚠️ 已知問題與改進方向
+- 部分資料欄位（講師、評分）拆分仍不夠精確，因原始資料中講師名稱可能包含數字，且與評分數值連續出現，導致解析時無法正確分隔，產生類似「小明老師1234565.0」的錯誤結果。
+- 資料格式異常時的錯誤處理機制有待強化，提升程式穩定性。
+- 新增爬蟲失敗頁面的紀錄與補爬機制
+- 增加 log 檔以儲存完整爬取過程，便於後續追蹤與除錯。
+- 目前僅在 Jupyter Notebook 針對部分分類測試程式運作，後續需完成所有領域的資料爬取與整合。
 ---
 
 ## 🙋‍♂️ 聯絡方式
@@ -185,12 +205,16 @@ hahow_course_analysis/
 
 ## 📌 版本紀錄
 
-- **v1.0 初版（2025-05-15）**
+- **v1.0 （2025-05-15）**
 
-  - 完成基本功能：資料爬取、合併、清理與匯出。  
+  - 完成基本爬蟲功能：資料爬取、合併與清理、匯出 CSV。  
   - 建立專案架構與流程說明。  
-  - 製作基本 README，包含環境設定與程式特色。
+  - 撰寫環境設定與程式特色。
 
+- **v1.1 （2025-05-18）**
 
-
+  - 新增重試機制，提升爬取穩定性。。  
+  - 修正部分欄位拆分問題（如講師與評分欄位）。  
+  - 增加爬蟲效能測試與時間紀錄。
+  - 發現並記錄少數資料格式異常，留待後續修正程式拆分邏輯。
 
