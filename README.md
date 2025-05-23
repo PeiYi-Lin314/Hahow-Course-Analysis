@@ -123,7 +123,7 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 ### ✅ 實際執行紀錄與錯誤處理展示   
 
-以下為實際執行`01_course_scraping.ipynb`程式時的部分輸出紀錄，展示爬蟲具備錯誤重試機制，能穩定處理偶發性錯誤並完整擷取資料：
+以下為實際執行 `01_course_scraping.ipynb` 程式時的部分輸出紀錄，展示爬蟲具備錯誤重試機制，能穩定處理偶發性錯誤並完整擷取資料：
 ```diff
 - 攝影第3頁發生錯誤並重試1次: Message:
 第3頁爬取成功，並輸出csv完成
@@ -133,7 +133,7 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 耗時358.2056610584259
 ```
 上述紀錄說明本程式能穩定處理多分類與多頁數資料擷取，透過重試機制成功解決突發錯誤，確保資料完整性。  
-**此執行結果為程式內置測試紀錄，展示程式實際運行狀況。**
+**此輸出為程式執行時的真實紀錄，有助於驗證程式執行狀態。**
 
 ---
 ## 📍 PART 2｜各分類資料合併
@@ -155,6 +155,23 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 - 檔案命名格式為 `hahow_{分類名稱}_merged.csv`，可支援自動化讀取與錯誤追蹤。
 - 若某分類資料缺少頁數，合併程序會提早結束，便於根據檔名快速定位中斷或遺漏頁數的問題。
 - 使用 `pandas.concat()` 進行合併，並設定 `ignore_index=True`，確保合併後的資料索引一致且整齊。
+
+### ✅ 實際執行紀錄展示
+以下為實際執行 `02_data_merging.ipynb` 程式時的部分輸出紀錄，展示程式能夠依序讀取各分類各頁的 CSV 檔案，並在找不到下一頁資料時自動跳過，完成各分類資料合併並輸出至指定資料夾 `merged_data/` 中：
+```
+已建立 merged_data 資料夾
+完成讀取: scraped_data/hahow_攝影_page1.csv  
+完成讀取: scraped_data/hahow_攝影_page2.csv  
+完成讀取: scraped_data/hahow_攝影_page3.csv  
+完成讀取: scraped_data/hahow_攝影_page4.csv  
+攝影第5頁資料不存在，進行下一個分類...  
+輸出 hahow攝影合併.csv 完成  
+
+全部分類皆合併完成!
+```
+上述紀錄說明本程式具備自動偵測資料存在與否的能力，確保資料完整合併，方便後續資料分析使用。  
+**此輸出為程式執行時的真實紀錄，有助於驗證程式執行狀態。**
+
 ---
 ## 📍 PART 3｜清理資料
 
