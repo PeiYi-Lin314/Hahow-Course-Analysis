@@ -123,7 +123,7 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 ### ✅ 實際執行紀錄與錯誤處理展示   
 
-以下為實際執行 `01_course_scraping.ipynb` 程式時的部分輸出紀錄，展示爬蟲具備錯誤重試機制，能穩定處理偶發性錯誤並完整擷取資料：
+以下為實際執行 `01_course_scraping.ipynb` 程式時的部分輸出紀錄，展示爬蟲具備錯誤重試機制，能穩定處理偶發性錯誤並完整擷取資料，執行過程如下：
 ```diff
 - 攝影第3頁發生錯誤並重試1次: Message:
 第3頁爬取成功，並輸出csv完成
@@ -157,7 +157,7 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 - 使用 `pandas.concat()` 進行合併，並設定 `ignore_index=True`，確保合併後的資料索引一致且整齊。
 
 ### ✅ 實際執行紀錄展示
-以下為實際執行 `02_data_merging.ipynb` 程式時的部分輸出紀錄，展示程式能夠依序讀取各分類各頁的 CSV 檔案，並在找不到下一頁資料時自動跳過，完成各分類資料合併並輸出至指定資料夾 `merged_data/` 中：
+以下為實際執行 `02_data_merging.ipynb` 程式時的部分輸出紀錄，展示程式能夠依序讀取各分類各頁的 CSV 檔案，並在找不到下一頁資料時自動跳過，完成各分類資料合併並輸出至指定資料夾 `merged_data/` 中，執行過程如下：
 ```
 已建立 merged_data 資料夾
 完成讀取: scraped_data/hahow_攝影_page1.csv  
@@ -207,6 +207,27 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 - 檔名為：`hahow_all_courses.csv`
 - 儲存資料夾：`total_data/`
+
+### ✅ 實際執行紀錄展示  
+`03_data_cleaning.ipynb` 會針對爬取的原始 CSV 資料進行清理，並輸出至 `cleaned_data/` 資料夾中，執行過程如下：
+```
+已建立 cleaned_data 資料夾
+音樂 清理完成  
+hahow_音樂_cleaned.csv 輸出完成  
+攝影 清理完成  
+hahow_攝影_cleaned.csv 輸出完成  
+
+全部分類完成!!
+```
+當各分類資料清理完成後，`03_data_cleaning.ipynb` 中的合併程式區塊會將清理後的資料合併成一份完整課程資料，並輸出至 `total_data/` 資料夾：
+```
+已建立 total_data 資料夾  
+hahow_音樂_cleaned.csv 讀取成功  
+hahow_攝影_cleaned.csv 讀取成功  
+hahow_all_courses.csv 輸出完成
+```
+合併結果方便後續進行資料分析與視覺化處理。  
+**以上兩段輸出皆為程式執行時的真實紀錄，有助於驗證程式執行狀態。**
 
 ---
 ## 🛠 未來可擴充方向
